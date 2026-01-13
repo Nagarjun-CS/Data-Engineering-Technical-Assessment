@@ -51,7 +51,7 @@ To onboard a new data partner, follow these steps:
 
 1. **Prepare the Partner’s Raw Data File**
      - File can be of any format supported by Spark (e.g., .csv, .txt, etc.).
-     - The file name must begin with the partner_name (e.g., acme.txt, acme.csv, or acme.pipe if partner_name is acme).
+     - The file name must begin with the partner_name (e.g., acme.txt, acme.csv, if partner_name is acme).
      - Place the file inside:
        ```
        /Volumes/data_catalog/source/assessment_volume/Healthcare_partners/
