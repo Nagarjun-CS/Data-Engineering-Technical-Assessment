@@ -88,16 +88,15 @@ To onboard a new data partner, follow these steps:
 - **column_mapping:** map original columns to standardized schema.
 
 **3. Run the Notebook**
-
    - The pipeline automatically detects and processes all config files.
    - For each config, it finds the corresponding raw file using the partner_code.
    - The file is ingested, standardized, cleaned, and merged.
    - Rows with malformed or missing DOBs are logged and exported separately.
 
 **4. Verify the Outputs**
-
     - Cleaned, valid records appear in the unified merged_df.
     - Invalid DOB records are exported per partner under:
+    
      ```
     /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/{partner_code}/
      ```
