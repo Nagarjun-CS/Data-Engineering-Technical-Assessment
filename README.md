@@ -43,3 +43,35 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
      /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/
      ```
 
+## How to Add a New Partner
+
+1. **Create a Configuration File**
+
+   Add a new JSON file under:
+    ```
+   /Volumes/data_catalog/source/assessment_volume/Config/
+    ```
+    Example:
+    ```json
+    {
+      "partner_code": "newpartner",
+      "delimiter": ",",
+      "date_format": "MM/dd/yyyy",
+      "column_mapping": {
+        "SubscriberID": "external_id",
+        "FirstName": "first_name",
+        "LastName": "last_name",
+        "DOB": "dob",
+        "EmailAddress": "email",
+        "PhoneNumber": "phone"
+      }
+    }
+
+ 2. **Upload Partner Data File**
+    Place the partner’s raw data file in:
+    ```
+   /Volumes/data_catalog/source/assessment_volume/Healthcare_patners/
+    ```
+
+ 3. **Register the Partner in the Notebook**
+    acme_data_path = "/Volumes/data_catalog/source/assessment_volume/Healthcare_partners/acme.txt"
