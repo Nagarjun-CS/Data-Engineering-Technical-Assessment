@@ -19,6 +19,7 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
 ## How to Run the Pipeline
 
 1. **Upload Input Files** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the data. If data is stored in the different location change the path in the code as well. Data path and config are stored under the variable data_dir and config_dir respectively).
+   
    - Raw partner data files (CSV or delimited TXT) should be uploaded to:
      ```
      /Volumes/data_catalog/source/assessment_volume/Healthcare_patners/
@@ -37,41 +38,66 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
      - Export invalid DOB records per partner
 
 3. **Outputs** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the invalid DOB records. If you want to stored the invalid records in the different location change the path in the code as well. Output path is stored under the variable output_path).
+   
    - **Final cleaned dataset** is available as a Spark DataFrame (`merged_df`)
    - **Invalid DOB records** are written to:
      ```
-     /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/
+     /Volumes/data_catalog/source/assessment_volume/output/invalid_jobs/
      ```
 
 ## How to Add a New Partner
 
-1. **Create a Configuration File**
+To onboard a new data partner, follow these steps:
 
-   Add a new JSON file under:
-    ```
-   /Volumes/data_catalog/source/assessment_volume/Config/
-    ```
-    Example:
+1. **Prepare the Partner’s Raw Data File**
+     - File can be of any format supported by Spark (e.g., .csv, .txt, .pipe, etc.).
+     - The file name must begin with the partner_name (e.g., acme.txt, acme.csv, or acme.pipe if partner_name is acme).
+     - Place the file inside:
+       ```
+       /Volumes/data_catalog/source/assessment_volume/Healthcare_partners/
+       ```
+
+2. **Create the Partner Configuration JSON**
+     - The file name must begin with the partner_name. (e.g. partner_name.json )
+     - Save a JSON file with the following structure inside:
+        ```
+        /Volumes/data_catalog/source/assessment_volume/Config/
+       ```
+     **Sample Config (partner_name.json)**
+
     ```json
-    {
-      "partner_code": "newpartner",
-      "delimiter": ",",
+        {
+      "partner_code": "acme",
+      "delimiter": "|",
       "date_format": "MM/dd/yyyy",
       "column_mapping": {
-        "SubscriberID": "external_id",
-        "FirstName": "first_name",
-        "LastName": "last_name",
+        "MBI": "external_id",
+        "FNAME": "first_name",
+        "LNAME": "last_name",
         "DOB": "dob",
-        "EmailAddress": "email",
-        "PhoneNumber": "phone"
+        "EMAIL": "email",
+        "PHONE": "phone"
       }
     }
+    
+**Notes:**
 
- 2. **Upload Partner Data File**
-    Place the partner’s raw data file in:
-    ```
-   /Volumes/data_catalog/source/assessment_volume/Healthcare_patners/
-    ```
+- **partner_code:** must match the start of the data file name (case-sensitive).
+- **delimiter:** delimiter used in the data file (e.g., ,, |, $ etc).
+- **date_format:** format of the date of birth (DOB) field.
+- **column_mapping:** map original columns to standardized schema.
 
- 3. **Register the Partner in the Notebook**
-    acme_data_path = "/Volumes/data_catalog/source/assessment_volume/Healthcare_partners/acme.txt"
+**3. Run the Notebook**
+
+   - The pipeline automatically detects and processes all config files.
+   - For each config, it finds the corresponding raw file using the partner_code.
+   - The file is ingested, standardized, cleaned, and merged.
+   - Rows with malformed or missing DOBs are logged and exported separately.
+
+**4. Verify the Outputs**
+
+    - Cleaned, valid records appear in the unified merged_df.
+    - Invalid DOB records are exported per partner under:
+     ```
+    /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/{partner_code}/
+     ```
