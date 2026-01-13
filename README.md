@@ -27,3 +27,19 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
      ```
      /Volumes/data_catalog/source/assessment_volume/Config/
      ```
+ 2. **Run the Notebook**
+   - Execute the main Databricks notebook.
+   - The pipeline will:
+     - Load each partner’s configuration
+     - Read the raw file using the configured delimiter
+     - Apply schema standardization and data cleaning
+     - Remove invalid records from the final dataset
+     - Export invalid DOB records per partner
+
+3. **Outputs**
+   - **Final cleaned dataset** is available as a Spark DataFrame (`final_df`)
+   - **Invalid DOB records** are written to:
+     ```
+     /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/<partner_code>/
+     ```
+
