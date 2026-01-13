@@ -15,3 +15,15 @@ This pipeline ingests and standardizes healthcare eligibility data from multiple
 - Merging all cleaned datasets into a unified DataFrame
 
 Each data record is tagged with its partner_code, and any rows with invalid or missing dob values are saved separately per partner for follow-up.
+
+## How to Run the Pipeline
+
+1. **Upload Input Files**
+   - Raw partner data files (CSV or delimited TXT) should be uploaded to:
+     ```
+     /Volumes/data_catalog/source/assessment_volume/Healthcare_patners/
+     ```
+   - Partner configuration files should be uploaded to:
+     ```
+     /Volumes/data_catalog/source/assessment_volume/Config/
+     ```
