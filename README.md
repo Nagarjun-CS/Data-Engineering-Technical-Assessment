@@ -18,7 +18,7 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
 
 ## How to Run the Pipeline
 
-1. **Upload Input Files** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the data. If data is stored in the different location change the path in the code as well.)
+1. **Upload Input Files** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the data. If data is stored in the different location change the path in the code as well. Data path and config are stored under the variable data_dir and config_dir respectively).
    - Raw partner data files (CSV or delimited TXT) should be uploaded to:
      ```
      /Volumes/data_catalog/source/assessment_volume/Healthcare_patners/
@@ -27,7 +27,7 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
      ```
      /Volumes/data_catalog/source/assessment_volume/Config/
      ```
- 2. **Run the Notebook**
+ 3. **Run the Notebook**
    - Execute the main Databricks notebook.
    - The pipeline will:
      - Load each partner’s configuration
@@ -36,8 +36,8 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
      - Remove invalid records from the final dataset
      - Export invalid DOB records per partner
 
-3. **Outputs** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the invalid DOB records. If you want to stored the invalid records in the different location change the path in the code as well.)
-   - **Final cleaned dataset** is available as a Spark DataFrame (`final_df`)
+3. **Outputs** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the invalid DOB records. If you want to stored the invalid records in the different location change the path in the code as well. Output path is stored under the variable output_path).
+   - **Final cleaned dataset** is available as a Spark DataFrame (`merged_df`)
    - **Invalid DOB records** are written to:
      ```
      /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/
