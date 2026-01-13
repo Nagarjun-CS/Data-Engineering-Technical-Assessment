@@ -18,7 +18,7 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
 
 ## How to Run the Pipeline
 
-1. **Upload Input Files**
+1. **Upload Input Files** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the data. If data is stored in the different location change the path in the code as well.)
    - Raw partner data files (CSV or delimited TXT) should be uploaded to:
      ```
      /Volumes/data_catalog/source/assessment_volume/Healthcare_patners/
@@ -36,10 +36,10 @@ Each data record is tagged with its partner_code, and any rows with invalid or m
      - Remove invalid records from the final dataset
      - Export invalid DOB records per partner
 
-3. **Outputs**
+3. **Outputs** (This location can be changed according to the requirement. For the assessment I have used databricks volumes to store the invalid DOB records. If you want to stored the invalid records in the different location change the path in the code as well.)
    - **Final cleaned dataset** is available as a Spark DataFrame (`final_df`)
    - **Invalid DOB records** are written to:
      ```
-     /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/<partner_code>/
+     /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/
      ```
 
