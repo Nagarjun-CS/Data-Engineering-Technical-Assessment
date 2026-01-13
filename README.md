@@ -94,10 +94,9 @@ To onboard a new data partner, follow these steps:
    - Rows with malformed or missing DOBs are logged and exported separately.
 
 **4. Verify the Outputs**
-
-    - Cleaned, valid records appear in the unified merged_df.
-    - Invalid DOB records are exported per partner under:
-    
-     ```
-    /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/{partner_code}/
-     ```
+   - Cleaned, valid records appear in the unified merged_df.
+   - Invalid DOB records are exported per partner under:
+      ```
+      /Volumes/data_catalog/source/assessment_volume/output/invalid_dobs/{partner_code}/
+      ```
+      
